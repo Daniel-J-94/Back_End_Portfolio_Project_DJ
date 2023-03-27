@@ -191,3 +191,54 @@ describe("Get all Reviews", () => {
       });
   });
 });
+describe("Get all Reviews", () => {
+  it("200 should respond with an array of comment objects, each of which should have a sorted by date in desc order", () => {
+    return request(app)
+      .get(`/api/reviews`)
+      .expect(200)
+      .then((resultResponse) => {
+        const reviews = resultResponse.body;
+        console.log("I'm in the third test! Here is the reviews", reviews);
+        // expect(reviews).toHaveLength(4);
+        reviews.forEach((review) => {
+          expect(review).toMatchObject({
+            review_id: expect.any(Number),
+            title: expect.any(String),
+            designer: expect.any(String),
+            owner: expect.any(String),
+            review_img_url: expect.any(String),
+            category: expect.any(String),
+            created_at: expect.any(String),
+            votes: expect.any(Number),
+            comment_count: expect.any(Number),
+          });
+        });
+      });
+  });
+  it("200 should respond with an array of review objects, each of which should be ordered by date desc", () => {
+    return request(app)
+      .get(`/api/reviews`)
+      .expect(200)
+      .then((resultResponse) => {
+        const reviews = resultResponse.body;
+        console.log("I'm in the fourth test! Here is the reviews", reviews);
+        expect(reviews[0].created_at >= reviews[1].created_at).toBe(true);
+        expect(reviews[1].created_at >= reviews[2].created_at).toBe(true);
+        expect(reviews[2].created_at >= reviews[3].created_at).toBe(true);
+        expect(reviews[4].created_at >= reviews[5].created_at).toBe(true);
+      });
+  });
+  it("404 should respond with an error message if path is spelled incorrectly", () => {
+    return request(app)
+      .get(`/api/reiews`)
+      .expect(404)
+      .then((resultResponse) => {
+        const resultResponseBody = resultResponse.body;
+        console.log(
+          "I'm in the second test! Here is the resultResponseBody",
+          resultResponseBody
+        );
+        expect(resultResponseBody).toEqual({ message: "Doesn't exist" });
+      });
+  });
+});
