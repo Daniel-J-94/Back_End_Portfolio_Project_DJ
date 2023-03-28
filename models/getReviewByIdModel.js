@@ -1,13 +1,10 @@
 const db = require("../db/connection");
 
-exports.fetchReviewById = (revIdFromReq) => {
-  const revIdNumber = revIdFromReq.review_id;
-
+exports.fetchReviewById = (reviewId) => {
   return db
-    .query("SELECT * FROM reviews WHERE review_id = $1;", [revIdNumber])
+    .query("SELECT * FROM reviews WHERE review_id = $1;", [reviewId])
 
     .then((result) => {
-      console.log("model result:", result);
       if (result.rows.length === 0) {
         return Promise.reject({
           status: 404,
