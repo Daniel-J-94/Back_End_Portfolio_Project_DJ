@@ -1,7 +1,7 @@
-const { getterCategories } = require("../models/getCategoriesModel");
+const { fetchCategories } = require("../models/getCategoriesModel");
 
 exports.getCategories = (req, res, next) => {
-  getterCategories()
+  fetchCategories()
     .then((result) => {
       res.status(200).send(result);
     })
