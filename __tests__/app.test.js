@@ -19,8 +19,6 @@ describe("Get all Reviews", () => {
       .expect(200)
       .then((resultResponse) => {
         const reviews = resultResponse.body;
-        console.log("I'm in the third test! Here is the reviews", reviews);
-        // expect(reviews).toHaveLength(4);
         reviews.forEach((review) => {
           expect(review).toMatchObject({
             review_id: expect.any(Number),
@@ -42,7 +40,6 @@ describe("Get all Reviews", () => {
       .expect(200)
       .then((resultResponse) => {
         const reviews = resultResponse.body;
-        console.log("I'm in the fourth test! Here is the reviews", reviews);
         expect(reviews[0].created_at >= reviews[1].created_at).toBe(true);
         expect(reviews[1].created_at >= reviews[2].created_at).toBe(true);
         expect(reviews[2].created_at >= reviews[3].created_at).toBe(true);
@@ -55,10 +52,6 @@ describe("Get all Reviews", () => {
       .expect(404)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
-        console.log(
-          "I'm in the second test! Here is the resultResponseBody",
-          resultResponseBody
-        );
         expect(resultResponseBody).toEqual({ message: "Doesn't exist" });
       });
   });
