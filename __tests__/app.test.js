@@ -53,6 +53,17 @@ describe("Get review by ID", () => {
         });
       });
   });
+  it("404 should respond with an error message if passed review_id does not match a review in the data", () => {
+    return request(app)
+      .get(`/api/reviews/150`)
+      .expect(404)
+      .then((resultResponse) => {
+        const resultResponseBody = resultResponse.body;
+        expect(resultResponseBody).toEqual({
+          message: "Doesn't exist",
+        });
+      });
+  });
   it("404 should respond with an error message if passed review_id is not an appropriate type", () => {
     return request(app)
       .get(`/api/reviews/two`)
@@ -60,7 +71,7 @@ describe("Get review by ID", () => {
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
         expect(resultResponseBody).toEqual({
-          message: "No review with that ID",
+          message: "Doesn't exist",
         });
       });
   });
