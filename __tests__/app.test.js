@@ -19,10 +19,6 @@ describe("Get all categories", () => {
       .expect(200)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
-        console.log(
-          "I'm in the first test! Here is the resultResponseBody",
-          resultResponseBody
-        );
         expect(resultResponseBody).toEqual([
           {
             slug: "euro game",
@@ -46,10 +42,6 @@ describe("Get all categories", () => {
       .expect(404)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
-        console.log(
-          "I'm in the second test! Here is the resultResponseBody",
-          resultResponseBody
-        );
         expect(resultResponseBody).toEqual({ message: "Doesn't exist" });
       });
   });
@@ -59,10 +51,6 @@ describe("Get all categories", () => {
       .expect(200)
       .then((resultResponse) => {
         const categories = resultResponse.body;
-        console.log(
-          "I'm in the third test! Here is the categories",
-          categories
-        );
         expect(categories).toHaveLength(4);
         categories.forEach((category) => {
           expect(category).toMatchObject({
