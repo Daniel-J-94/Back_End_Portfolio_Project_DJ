@@ -18,7 +18,7 @@ describe("Get all Reviews", () => {
       .get(`/api/reviews`)
       .expect(200)
       .then((resultResponse) => {
-        const reviews = resultResponse.body;
+        const { reviews } = resultResponse.body;
         reviews.forEach((review) => {
           expect(review).toMatchObject({
             review_id: expect.any(Number),
@@ -39,7 +39,7 @@ describe("Get all Reviews", () => {
       .get(`/api/reviews`)
       .expect(200)
       .then((resultResponse) => {
-        const reviews = resultResponse.body;
+        const { reviews } = resultResponse.body;
         expect(reviews[0].created_at >= reviews[1].created_at).toBe(true);
         expect(reviews[1].created_at >= reviews[2].created_at).toBe(true);
         expect(reviews[2].created_at >= reviews[3].created_at).toBe(true);
