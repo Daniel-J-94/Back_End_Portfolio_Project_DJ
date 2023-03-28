@@ -61,4 +61,3 @@ describe("Get all categories", () => {
       });
   });
 });
-// removed consolelogs
