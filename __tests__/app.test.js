@@ -12,7 +12,6 @@ afterAll(() => {
   db.end();
 });
 
-
 describe("Get review by ID", () => {
   it("200 should respond with an object containing a review_id that matches the given parametric input as well as properties for: title, review_body, designer, review_img_url, votes, category, owner and created_at", () => {
     return request(app)
@@ -61,19 +60,22 @@ describe("Get review by ID", () => {
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
         expect(resultResponseBody).toEqual({
-          message: "Doesn't exist",
+          msg: " no review found for review_id",
         });
       });
   });
-  it("404 should respond with an error message if passed review_id is not an appropriate type", () => {
+  it("400 should respond with an error message if passed review_id is not an appropriate type", () => {
     return request(app)
       .get(`/api/reviews/two`)
-      .expect(404)
+      .expect(400)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
         expect(resultResponseBody).toEqual({
-          message: "Doesn't exist",
-
+          msg: "Invalid input",
+        });
+      });
+  });
+});
 describe("Get all categories", () => {
   it("200 should respond with an array of category objects, each of which should have a slug property and a description property", () => {
     return request(app)
