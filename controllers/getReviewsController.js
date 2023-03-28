@@ -1,7 +1,7 @@
-const { getterReviews } = require("../models/getReviewsModel");
+const { fetchReviews } = require("../models/getReviewsModel");
 
 exports.getReviews = (req, res, next) => {
-  getterReviews()
+  fetchReviews()
     .then((result) => {
       res.status(200).send({ reviews: result });
     })
