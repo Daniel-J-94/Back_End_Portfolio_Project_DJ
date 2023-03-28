@@ -36,7 +36,7 @@ describe("Get comments by review ID", () => {
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
         expect(resultResponseBody).toEqual({
-          message: "No review with that ID",
+          message: "Doesn't exist",
         });
       });
   });
