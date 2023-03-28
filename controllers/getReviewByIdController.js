@@ -2,10 +2,6 @@ const { getterReviewById } = require("../models/getReviewByIdModel.js");
 
 exports.getReviewById = (req, res, next) => {
   const revIdFromReq = req.params;
-  console.log(
-    "i'm in the getrevbyid controller! here is the input req.params/revIdFromReq:",
-    revIdFromReq
-  );
   getterReviewById(revIdFromReq)
     .then((result) => {
       console.log(

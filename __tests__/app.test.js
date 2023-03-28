@@ -19,10 +19,6 @@ describe("Get review by ID", () => {
       .expect(200)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
-        console.log(
-          "1 I'm in the first test! Here is the resultResponseBody",
-          resultResponseBody
-        );
         expect(resultResponseBody).toEqual({
           review_id: 4,
           title: "Dolor reprehenderit",
@@ -44,10 +40,6 @@ describe("Get review by ID", () => {
       .expect(200)
       .then((resultResponse) => {
         const reviewObject = resultResponse.body;
-        console.log(
-          "2I'm in the third test! Here is the categories",
-          reviewObject
-        );
         expect(reviewObject).toMatchObject({
           review_id: expect.any(Number),
           title: expect.any(String),
@@ -67,10 +59,6 @@ describe("Get review by ID", () => {
       .expect(404)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
-        console.log(
-          "I'm in the third test! Here is the resultResponseBody",
-          resultResponseBody
-        );
         expect(resultResponseBody).toEqual({
           message: "No review with that ID",
         });
