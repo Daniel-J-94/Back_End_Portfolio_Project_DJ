@@ -24,7 +24,6 @@ exports.fetchReviewsById = (revId) => {
     ])
     .then((result) => {
       if (result.rows.length === 0) {
-        console.log("IF IS 404");
         return Promise.reject({
           status: 404,
 

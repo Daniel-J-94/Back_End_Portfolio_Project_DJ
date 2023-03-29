@@ -185,30 +185,19 @@ describe("Get all Reviews", () => {
   it("200 should respond with an array of review objects, each of which should have a the following properties: owner, title, review_id, category, review_img_url, created_at, votes, designer and comment_count, sorted by date in desc order", () => {
     return request(app)
       .get(`/api/reviews`)
-
       .expect(200)
-
       .then((resultResponse) => {
         const { reviews } = resultResponse.body;
-
         reviews.forEach((review) => {
           expect(review).toMatchObject({
             review_id: expect.any(Number),
-
             title: expect.any(String),
-
             designer: expect.any(String),
-
             owner: expect.any(String),
-
             review_img_url: expect.any(String),
-
             category: expect.any(String),
-
             created_at: expect.any(String),
-
             votes: expect.any(Number),
-
             comment_count: expect.any(Number),
           });
         });
