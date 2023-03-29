@@ -225,3 +225,82 @@ describe("Get all Reviews", () => {
       });
   });
 });
+
+describe("Post comment", () => {
+  it("201 should post a new comment on the review with the given review_id param, should respond with the added comment", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: "I used to love playing this game, but then I took an arrow to the knee",
+    };
+
+    return request(app)
+      .post("/api/reviews/2/comments")
+      .send(newComment)
+      .expect(201)
+      .then((resultResponse) => {
+        const resultResponseBody = resultResponse.body.new_comment[0];
+        const resultForLengthCheck = resultResponse.body.new_comment;
+        expect(resultForLengthCheck.length).toBe(1);
+        expect(resultResponseBody).toEqual({
+          comment_id: 7,
+          body: "I used to love playing this game, but then I took an arrow to the knee",
+          votes: 0,
+          author: "mallionaire",
+          review_id: 2,
+          created_at: expect.any(String),
+        });
+      });
+  });
+  //
+  it("404 should respond with an error message if given a review_id that does not exist", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: "more like I'm bored games",
+    };
+
+    return request(app)
+      .post("/api/reviews/1000/comments")
+      .send(newComment)
+      .expect(404)
+      .then((resultResponse) => {
+        console.log("res", resultResponse);
+        expect(resultResponse.body).toStrictEqual({
+          msg: "Invalid username or review ID",
+        });
+      });
+  });
+  it("404 should respond with an error message if given a username that does not exist", () => {
+    const newComment = {
+      username: "John_Doe_88",
+      body: "A spooky experience for the whole family",
+    };
+
+    return request(app)
+      .post("/api/reviews/3/comments")
+      .send(newComment)
+      .expect(404)
+      .then((resultResponse) => {
+        console.log("res", resultResponse);
+        expect(resultResponse.body).toStrictEqual({
+          msg: "Invalid username or review ID",
+        });
+      });
+  });
+  it("404 should respond with an error message if user posts an empty comment", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: undefined,
+    };
+
+    return request(app)
+      .post("/api/reviews/3/comments")
+      .send(newComment)
+      .expect(400)
+      .then((resultResponse) => {
+        console.log("res", resultResponse);
+        expect(resultResponse.body).toStrictEqual({
+          msg: "Please enter a valid comment",
+        });
+      });
+  });
+});
