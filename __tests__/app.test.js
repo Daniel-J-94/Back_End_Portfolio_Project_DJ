@@ -256,7 +256,7 @@ describe("Patch Votes", () => {
           review_img_url:
             "https://images.pexels.com/photos/5350049/pexels-photo-5350049.jpeg?w=700&h=700",
           created_at: "2021-01-18T10:01:41.251Z",
-          votes: 2001,
+          votes: 2006,
         });
       });
   });

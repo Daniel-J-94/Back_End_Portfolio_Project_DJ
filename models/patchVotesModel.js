@@ -8,7 +8,7 @@ exports.updateVotes = (id, voteChange) => {
   // WHERE review_id = $1;`;
   const psqlQuery = `UPDATE reviews
   
-  SET votes = $2
+  SET votes = votes + $2
   WHERE review_id = $1 RETURNING *`;
   // const values = [body, 0, author, id, dateSetter];
 
