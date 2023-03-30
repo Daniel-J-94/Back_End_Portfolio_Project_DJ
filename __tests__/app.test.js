@@ -322,4 +322,20 @@ describe("Post comment", () => {
         });
       });
   });
+  it("400 should respond with an error message if passed an invalid review id type", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: "My pet anteater didn't like this game, although she did say it would porbably be her favorite game if it had more ants",
+    };
+
+    return request(app)
+      .post("/api/reviews/addMoreAntsPlease/comments")
+      .send(newComment)
+      .expect(400)
+      .then((resultResponse) => {
+        expect(resultResponse.body).toStrictEqual({
+          msg: "Invalid input",
+        });
+      });
+  });
 });
