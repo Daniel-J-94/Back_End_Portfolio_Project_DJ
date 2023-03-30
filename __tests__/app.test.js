@@ -238,15 +238,13 @@ describe("Post comment", () => {
       .send(newComment)
       .expect(201)
       .then((resultResponse) => {
-        const resultResponseBody = resultResponse.body.new_comment[0];
-        const resultForLengthCheck = resultResponse.body.new_comment;
-        expect(resultForLengthCheck.length).toBe(1);
+        const resultResponseBody = resultResponse.body.new_comment;
         expect(resultResponseBody).toEqual({
           comment_id: 7,
           body: "I used to love playing this game, but then I took an arrow to the knee",
-          votes: 0,
-          author: "mallionaire",
           review_id: 2,
+          author: "mallionaire",
+          votes: 0,
           created_at: expect.any(String),
         });
       });
@@ -309,15 +307,13 @@ describe("Post comment", () => {
       .send(newComment)
       .expect(201)
       .then((resultResponse) => {
-        const resultResponseBody = resultResponse.body.new_comment[0];
-        const resultForLengthCheck = resultResponse.body.new_comment;
-        expect(resultForLengthCheck.length).toBe(1);
+        const resultResponseBody = resultResponse.body.new_comment;
         expect(resultResponseBody).toEqual({
           comment_id: 7,
           body: "Fantastic Stuff!",
-          votes: 0,
-          author: "mallionaire",
           review_id: 2,
+          author: "mallionaire",
+          votes: 0,
           created_at: expect.any(String),
         });
       });

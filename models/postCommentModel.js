@@ -10,6 +10,7 @@ exports.sendComment = (author, body, id) => {
     .query(psqlQuery, values)
 
     .then((result) => {
-      return result.rows;
+      const resultComment = result.rows[0];
+      return resultComment;
     });
 };
