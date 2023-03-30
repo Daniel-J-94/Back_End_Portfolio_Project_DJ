@@ -263,7 +263,6 @@ describe("Post comment", () => {
       .send(newComment)
       .expect(404)
       .then((resultResponse) => {
-        console.log("res", resultResponse);
         expect(resultResponse.body).toStrictEqual({
           msg: "Invalid username or review ID",
         });
@@ -274,13 +273,11 @@ describe("Post comment", () => {
       username: "John_Doe_88",
       body: "A spooky experience for the whole family",
     };
-
     return request(app)
       .post("/api/reviews/3/comments")
       .send(newComment)
       .expect(404)
       .then((resultResponse) => {
-        console.log("res", resultResponse);
         expect(resultResponse.body).toStrictEqual({
           msg: "Invalid username or review ID",
         });
@@ -291,15 +288,37 @@ describe("Post comment", () => {
       username: "mallionaire",
       body: undefined,
     };
-
     return request(app)
       .post("/api/reviews/3/comments")
       .send(newComment)
       .expect(400)
       .then((resultResponse) => {
-        console.log("res", resultResponse);
         expect(resultResponse.body).toStrictEqual({
           msg: "Please enter a valid comment",
+        });
+      });
+  });
+  it("201 should ignore any unecessary properties passed into the request body", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: "Fantastic Stuff!",
+      votes: 3,
+    };
+    return request(app)
+      .post("/api/reviews/2/comments")
+      .send(newComment)
+      .expect(201)
+      .then((resultResponse) => {
+        const resultResponseBody = resultResponse.body.new_comment[0];
+        const resultForLengthCheck = resultResponse.body.new_comment;
+        expect(resultForLengthCheck.length).toBe(1);
+        expect(resultResponseBody).toEqual({
+          comment_id: 7,
+          body: "Fantastic Stuff!",
+          votes: 0,
+          author: "mallionaire",
+          review_id: 2,
+          created_at: expect.any(String),
         });
       });
   });
