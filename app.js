@@ -2,12 +2,15 @@ const express = require("express");
 const { getReviews } = require("./controllers/getReviewsController");
 const { getReviewById } = require("./controllers/getReviewByIdController");
 const { getCategories } = require("./controllers/getCategoriesController");
+const {
+  getCommentsByReviewId,
+} = require("./controllers/getCommentsByReviewIdController");
 
 const app = express();
 app.get("/api/categories", getCategories);
 app.get("/api/reviews/:review_id", getReviewById);
 app.get("/api/reviews", getReviews);
-
+app.get("/api/reviews/:review_id/comments", getCommentsByReviewId);
 app.use("*", (req, res) => {
   res.status(404).send({ message: "Doesn't exist" });
 });
