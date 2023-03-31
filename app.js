@@ -37,9 +37,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  // if (err.code === "10000000") {
-  //   res.status(204).send({ msg: "No Content" });
-  // }
   if (err.code === "23502") {
     res.status(400).send({ msg: "Please enter a valid comment" });
   }
