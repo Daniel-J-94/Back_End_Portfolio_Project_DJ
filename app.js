@@ -1,6 +1,9 @@
 const express = require("express");
+
 const { getReviews } = require("./controllers/getReviewsController");
+
 const { getReviewById } = require("./controllers/getReviewByIdController");
+
 const { getCategories } = require("./controllers/getCategoriesController");
 const {
   postComment,
@@ -8,8 +11,10 @@ const {
 const {
   getCommentsByReviewId,
 } = require("./controllers/getCommentsByReviewIdController");
+const { patchVotes } = require("./controllers/patchVotesController");
 
 const app = express();
+
 app.use(express.json());
 
 app.get("/api/categories", getCategories);
@@ -17,6 +22,7 @@ app.get("/api/reviews/:review_id", getReviewById);
 app.get("/api/reviews", getReviews);
 app.post("/api/reviews/:review_id/comments", postComment);
 app.get("/api/reviews/:review_id/comments", getCommentsByReviewId);
+app.patch("/api/reviews/:review_id", patchVotes);
 
 app.use("*", (req, res) => {
   res.status(404).send({ message: "Doesn't exist" });
