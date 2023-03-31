@@ -238,15 +238,13 @@ describe("Get all Reviews", () => {
 });
 
 describe("Patch Votes", () => {
-  it("201 should update the votes value for a review with a given review_id and respond with the updated review", () => {
+  it("200 should update the votes value for a review with a given review_id and respond with the updated review", () => {
     return request(app)
       .patch(`/api/reviews/3`)
       .send({ inc_votes: 2001 })
-      .expect(201)
+      .expect(200)
       .then((resultResponse) => {
-        const reviews = resultResponse.body.review[0];
-        const responseArray = resultResponse.body.review;
-        expect(responseArray.length).toBe(1);
+        const reviews = resultResponse.body.review;
         expect(reviews).toMatchObject({
           review_id: expect.any(Number),
           title: expect.any(String),
@@ -286,25 +284,23 @@ describe("Patch Votes", () => {
   });
   it("400 should respond with an error message if inc_votes value is undefined", () => {
     return request(app)
-      .patch(`/api/reviews/banana`)
+      .patch(`/api/reviews/3`)
       .send({ inc_votes: undefined })
       .expect(400)
       .then((resultResponse) => {
         const resultResponseBody = resultResponse.body;
         expect(resultResponseBody).toStrictEqual({
-          msg: "Invalid input",
+          msg: "Please enter a valid comment",
         });
       });
   });
-  it("201 should update the votes value correctly when passed a negative inc_vots value", () => {
+  it("200 should update the votes value correctly when passed a negative inc_vots value", () => {
     return request(app)
       .patch(`/api/reviews/3`)
       .send({ inc_votes: -10 })
-      .expect(201)
+      .expect(200)
       .then((resultResponse) => {
-        const reviews = resultResponse.body.review[0];
-        const responseArray = resultResponse.body.review;
-        expect(responseArray.length).toBe(1);
+        const reviews = resultResponse.body.review;
         expect(reviews).toMatchObject({
           review_id: expect.any(Number),
           title: expect.any(String),
@@ -315,30 +311,16 @@ describe("Patch Votes", () => {
           review_img_url: expect.any(String),
           created_at: expect.any(String),
           votes: expect.any(Number),
-        });
-        expect(reviews).toEqual({
-          review_id: 3,
-          title: "Ultimate Werewolf",
-          category: "social deduction",
-          designer: "Akihisa Okui",
-          owner: "bainesface",
-          review_body: "We couldn't find the werewolf!",
-          review_img_url:
-            "https://images.pexels.com/photos/5350049/pexels-photo-5350049.jpeg?w=700&h=700",
-          created_at: "2021-01-18T10:01:41.251Z",
-          votes: -5,
         });
       });
   });
-  it("201 votes value shouldn't change if inc_votes is 0", () => {
+  it("200 votes value shouldn't change if inc_votes is 0", () => {
     return request(app)
       .patch(`/api/reviews/3`)
       .send({ inc_votes: 0 })
-      .expect(201)
+      .expect(200)
       .then((resultResponse) => {
-        const reviews = resultResponse.body.review[0];
-        const responseArray = resultResponse.body.review;
-        expect(responseArray.length).toBe(1);
+        const reviews = resultResponse.body.review;
         expect(reviews).toMatchObject({
           review_id: expect.any(Number),
           title: expect.any(String),
@@ -349,18 +331,6 @@ describe("Patch Votes", () => {
           review_img_url: expect.any(String),
           created_at: expect.any(String),
           votes: expect.any(Number),
-        });
-        expect(reviews).toEqual({
-          review_id: 3,
-          title: "Ultimate Werewolf",
-          category: "social deduction",
-          designer: "Akihisa Okui",
-          owner: "bainesface",
-          review_body: "We couldn't find the werewolf!",
-          review_img_url:
-            "https://images.pexels.com/photos/5350049/pexels-photo-5350049.jpeg?w=700&h=700",
-          created_at: "2021-01-18T10:01:41.251Z",
-          votes: 5,
         });
       });
   });

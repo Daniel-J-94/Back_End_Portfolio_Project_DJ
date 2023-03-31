@@ -6,7 +6,7 @@ exports.patchVotes = (req, res, next) => {
 
   updateVotes(id, voteChange)
     .then((result) => {
-      res.status(201).send({ review: result });
+      res.status(200).send({ review: result });
     })
 
     .catch((err) => {
