@@ -5,9 +5,7 @@ const { getReviews } = require("./controllers/getReviewsController");
 const { getReviewById } = require("./controllers/getReviewByIdController");
 
 const { getCategories } = require("./controllers/getCategoriesController");
-const {
-  postComment,
-} = require("../be-nc-games/controllers/postCommentController");
+const { postComment } = require("./controllers/postCommentControllers");
 const {
   getCommentsByReviewId,
 } = require("./controllers/getCommentsByReviewIdController");
