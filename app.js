@@ -12,6 +12,7 @@ const {
   getCommentsByReviewId,
 } = require("./controllers/getCommentsByReviewIdController");
 const { patchVotes } = require("./controllers/patchVotesController");
+const { deleteComment } = require("./controllers/deleteCommentController");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/api/reviews", getReviews);
 app.post("/api/reviews/:review_id/comments", postComment);
 app.get("/api/reviews/:review_id/comments", getCommentsByReviewId);
 app.patch("/api/reviews/:review_id", patchVotes);
+app.delete("/api/comments/:comment_id", deleteComment);
 
 app.use("*", (req, res) => {
   res.status(404).send({ message: "Doesn't exist" });
@@ -35,6 +37,9 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  // if (err.code === "10000000") {
+  //   res.status(204).send({ msg: "No Content" });
+  // }
   if (err.code === "23502") {
     res.status(400).send({ msg: "Please enter a valid comment" });
   }

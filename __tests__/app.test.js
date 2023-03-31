@@ -496,3 +496,105 @@ describe("Post comment", () => {
       });
   });
 });
+
+describe.only("Delete Comment", () => {
+  it("204 should delete a comment with the given comment_id param, should respond with no content", () => {
+    const newComment = {
+      username: "mallionaire",
+      body: "I used to love playing this game, but then I took an arrow to the knee",
+    };
+    return request(app)
+      .delete("/api/comments/4")
+      .expect(201)
+      .then((resultResponse) => {
+        const resultResponseBody = resultResponse.body;
+        expect(resultResponseBody).toEqual({ msg: "No Content" });
+      });
+  });
+});
+//
+//   it("404 should respond with an error message if given a review_id that does not exist", () => {
+//     const newComment = {
+//       username: "mallionaire",
+//       body: "more like I'm bored games",
+//     };
+
+//     return request(app)
+//       .post("/api/reviews/1000/comments")
+//       .send(newComment)
+//       .expect(404)
+//       .then((resultResponse) => {
+//         expect(resultResponse.body).toStrictEqual({
+//           msg: "Invalid username or review ID",
+//         });
+//       });
+//   });
+//   it("404 should respond with an error message if given a username that does not exist", () => {
+//     const newComment = {
+//       username: "John_Doe_88",
+//       body: "A spooky experience for the whole family",
+//     };
+//     return request(app)
+//       .post("/api/reviews/3/comments")
+//       .send(newComment)
+//       .expect(404)
+//       .then((resultResponse) => {
+//         expect(resultResponse.body).toStrictEqual({
+//           msg: "Invalid username or review ID",
+//         });
+//       });
+//   });
+//   it("404 should respond with an error message if user posts an empty comment", () => {
+//     const newComment = {
+//       username: "mallionaire",
+//       body: undefined,
+//     };
+//     return request(app)
+//       .post("/api/reviews/3/comments")
+//       .send(newComment)
+//       .expect(400)
+//       .then((resultResponse) => {
+//         expect(resultResponse.body).toStrictEqual({
+//           msg: "Please enter a valid comment",
+//         });
+//       });
+//   });
+//   it("201 should ignore any unecessary properties passed into the request body", () => {
+//     const newComment = {
+//       username: "mallionaire",
+//       body: "Fantastic Stuff!",
+//       votes: 3,
+//     };
+//     return request(app)
+//       .post("/api/reviews/2/comments")
+//       .send(newComment)
+//       .expect(201)
+//       .then((resultResponse) => {
+//         const resultResponseBody = resultResponse.body.new_comment;
+//         expect(resultResponseBody).toEqual({
+//           comment_id: 7,
+//           body: "Fantastic Stuff!",
+//           review_id: 2,
+//           author: "mallionaire",
+//           votes: 0,
+//           created_at: expect.any(String),
+//         });
+//       });
+//   });
+//   it("400 should respond with an error message if passed an invalid review id type", () => {
+//     const newComment = {
+//       username: "mallionaire",
+//       body: "My pet anteater didn't like this game, although she did say it would porbably be her favorite game if it had more ants",
+//     };
+
+//     return request(app)
+//       .post("/api/reviews/addMoreAntsPlease/comments")
+//       .send(newComment)
+//       .expect(400)
+//       .then((resultResponse) => {
+//         expect(resultResponse.body).toStrictEqual({
+//           msg: "Invalid input",
+//         });
+//       });
+//   });
+// });
