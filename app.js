@@ -15,6 +15,8 @@ const { deleteComment } = require("./controllers/deleteCommentController");
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
 app.get("/api/categories", getCategories);
